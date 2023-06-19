@@ -7,11 +7,11 @@ const mongoose = require('mongoose'); // импорт mongoose
 const cookieParser = require('cookie-parser'); // импорт cookie-parser
 const validationErrors = require('celebrate').errors; // импорт celebrate
 const helmet = require('helmet'); // импорт helmet (заголовки безопасности можно проставлять автоматически)
-// const corsModule = require('cors');
+const corsModule = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger'); // импорт миддлвэров для логирования запросов и ошибок
 const errors = require('./middlewares/errors'); // импорт централизованного обработчика ошибок
 const limiter = require('./middlewares/limiter');
-// const cors = require('./middlewares/cors');
+const cors = require('./middlewares/cors');
 
 const router = require('./routes/index'); // импорт роутов
 
@@ -25,12 +25,12 @@ mongoose.connect(DATABASE || DEFAULT_DATABASE, {
   useNewUrlParser: true
 });
 
-// app.use(corsModule({
-//   origin: true,
-//   credentials: true
-// }));
+app.use(corsModule({
+  origin: true,
+  credentials: true
+}));
 
-// app.use(cors);
+app.use(cors);
 
 app.use(express.json()); // для сборки JSON-формата
 app.use(cookieParser()); // подключить парсер кук как мидлвэр

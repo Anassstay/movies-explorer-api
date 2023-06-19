@@ -25,7 +25,6 @@ const UNAUTH_MESSAGE = 'Необходима авторизация';
 
 const allowedCors = [
   'diploma.api.a.stay.nomoredomains.rocks',
-  'diploma.a.stay.nomoredomains.rocks',
   'localhost:3000',
   'localhost:3001'
 ];
