@@ -22,7 +22,8 @@ const app = express(); // создать приложение методом exp
 
 // Подключить приложение к cерверу mongo
 mongoose.connect(NODE_ENV === 'production' ? DATABASE : DEFAULT_DATABASE, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  Family: 4
 });
 
 app.use(corsModule({

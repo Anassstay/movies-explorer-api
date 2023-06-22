@@ -51,6 +51,7 @@ const createUser = (req, res, next) => {
     // вернуть записанные в базу данные
     .then((user) => {
       const data = user.toObject();
+      console.log(data);
       delete data.password;
       res.status(CREATED).send(data);
     })
