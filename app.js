@@ -15,13 +15,13 @@ const cors = require('./middlewares/cors');
 
 const router = require('./routes/index'); // импорт роутов
 
-const { PORT, DATABASE } = process.env;
-const { DEFAULT_DATABASE } = require('./utils/config');
+const { PORT, DATABASE, NODE_ENV } = process.env;
+const { DEFAULT_DATABASE, DEFAULT_PORT } = require('./utils/config');
 
 const app = express(); // создать приложение методом express
 
 // Подключить приложение к cерверу mongo
-mongoose.connect(DATABASE || DEFAULT_DATABASE, {
+mongoose.connect(NODE_ENV === 'production' ? DATABASE : DEFAULT_DATABASE, {
   useNewUrlParser: true
 });
 
@@ -44,4 +44,4 @@ app.use(errorLogger); // логгер ошибок
 app.use(validationErrors()); // обработчик ошибок celebrate
 app.use(errors); // централизованный обработчик ошибок
 
-app.listen(PORT); // Слушать порт
+app.listen(PORT || DEFAULT_PORT); // Слушать порт
