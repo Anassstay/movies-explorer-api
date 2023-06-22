@@ -24,9 +24,9 @@ const LOGOUT_MESSAGE = 'Вы вышли из системы';
 const UNAUTH_MESSAGE = 'Необходима авторизация';
 
 const allowedCors = [
-  'diploma.api.a.stay.nomoredomains.rocks',
-  'localhost:3000',
-  'localhost:3001'
+  'https://diploma.api.a.stay.nomoredomains.rocks',
+  'https://localhost:3000',
+  'https://localhost:3001'
 ];
 
 module.exports = {
