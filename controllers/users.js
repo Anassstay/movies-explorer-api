@@ -114,8 +114,8 @@ const login = async (req, res, next) => {
     );
 
     res.cookie('jwt', token, {
-      // domain: 'diploma.api.a.stay.nomoredomains.rocks',
-      // path: '/',
+      domain: 'diploma.api.a.stay.nomoredomains.rocks',
+      path: '/',
       // такая кука будет храниться 7 дней
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
@@ -131,8 +131,8 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     res.clearCookie('jwt', {
-      // domain: 'diploma.api.a.stay.nomoredomains.rocks',
-      // path: '/',
+      domain: 'diploma.api.a.stay.nomoredomains.rocks',
+      path: '/',
       sameSite: 'none',
       secure: true,
     }).send({ message: LOGOUT_MESSAGE });
