@@ -15,8 +15,8 @@ const cors = require('./middlewares/cors');
 
 const router = require('./routes/index'); // импорт роутов
 
-const { PORT, DATABASE, NODE_ENV } = process.env;
-const { DEFAULT_DATABASE, DEFAULT_PORT } = require('./utils/config');
+const { PORT = 3000, DATABASE, NODE_ENV } = process.env;
+const { DEFAULT_DATABASE } = require('./utils/config');
 
 const app = express(); // создать приложение методом express
 
@@ -44,4 +44,4 @@ app.use(errorLogger); // логгер ошибок
 app.use(validationErrors()); // обработчик ошибок celebrate
 app.use(errors); // централизованный обработчик ошибок
 
-app.listen(PORT || DEFAULT_PORT); // Слушать порт
+app.listen(PORT); // Слушать порт
