@@ -103,6 +103,7 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
+    console.log(user, email, password);
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedError(AUTHORIZATION_ERR_MESSAGE);
     }
@@ -115,15 +116,15 @@ const login = async (req, res, next) => {
     );
 
     res.cookie('jwt', token, {
-      domain: 'diploma.api.a.stay.nomoredomains.rocks',
-      path: '/',
+      // domain: 'diploma.api.a.stay.nomoredomains.rocks',
+      // path: '/',
       // такая кука будет храниться 7 дней
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
       // защита от автоматической отправки кук
       // указать браузеру, чтобы тот посылал куки, только если запрос сделан с того же домена
-      sameSite: 'none',
-      secure: true,
+      // sameSite: 'none',
+      // secure: true,
     });
     res.send({ message: LOGIN_MESSAGE });
   } catch (err) { next(err); }
