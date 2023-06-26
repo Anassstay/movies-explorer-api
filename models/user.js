@@ -1,10 +1,10 @@
 // Создать схему и модель ресурсов API для users
 
 const mongoose = require('mongoose'); // импорт mongoose
-const bcrypt = require('bcryptjs'); // импорт bcrypt
+// const bcrypt = require('bcryptjs'); // импорт bcrypt
 const validator = require('validator'); // импорт валидаторов
 
-const UnauthorizedError = require('../errors/unauthorizedError'); // импорт классов ошибок
+// const UnauthorizedError = require('../errors/unauthorizedError'); // импорт классов ошибок
 
 // Опишем схему:
 const userSchema = new mongoose.Schema({
@@ -32,24 +32,24 @@ const userSchema = new mongoose.Schema({
 }, {
   versionKey: false,
 
-  statics: {
-    findUserByCredentials(email, password) {
-      // попытка найти пользователя по почте
-      return this.findOne({ email }).select('+password') // this — модель гser
-        .then((user) => {
-          if (!user) { // не нашёлся — отклонить промис
-            throw new UnauthorizedError('Неправильная почта или пароль');
-          }
-          return bcrypt.compare(password, user.password) // нашёлся — сравнить хеши
-            .then((matched) => {
-              if (!matched) {
-                throw new UnauthorizedError('Неправильная почта или пароль');
-              }
-              return user; // теперь user доступен
-            });
-        });
-    },
-  },
+  // statics: {
+  //   findUserByCredentials(email, password) {
+  //     // попытка найти пользователя по почте
+  //     return this.findOne({ email }).select('+password') // this — модель гser
+  //       .then((user) => {
+  //         if (!user) { // не нашёлся — отклонить промис
+  //           throw new UnauthorizedError('Неправильная почта или пароль');
+  //         }
+  //         return bcrypt.compare(password, user.password) // нашёлся — сравнить хеши
+  //           .then((matched) => {
+  //             if (!matched) {
+  //               throw new UnauthorizedError('Неправильная почта или пароль');
+  //             }
+  //             return user; // теперь user доступен
+  //           });
+  //       });
+  //   },
+  // },
 });
 
 // создать модель и экспортировать

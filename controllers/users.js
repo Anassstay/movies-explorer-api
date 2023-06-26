@@ -11,7 +11,7 @@ const NotFoundError = require('../errors/notFoundError'); // импорт кла
 const BadRequestError = require('../errors/badRequestError'); // импорт класса ошибки 400
 const UnauthorizedError = require('../errors/unauthorizedError'); // импорт класса ошибки 401
 
-const JWT_SECRET = require('../utils/config'); // импорт секретного ключа
+const { JWT_SECRET } = require('../utils/config'); // импорт секретного ключа
 
 const JWT_SECRET_PROD = process.env.REACT_APP_JWT_SECRET;
 const { NODE_ENV } = process.env;
@@ -51,7 +51,6 @@ const createUser = (req, res, next) => {
     // вернуть записанные в базу данные
     .then((user) => {
       const data = user.toObject();
-      console.log(data);
       delete data.password;
       res.status(CREATED).send(data);
     })
@@ -103,18 +102,15 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
-    console.log(user, email, password);
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedError(AUTHORIZATION_ERR_MESSAGE);
     }
-
     // создать токен
     const token = jwt.sign(
       { _id: user._id },
       NODE_ENV === 'production' ? JWT_SECRET_PROD : JWT_SECRET,
       { expiresIn: '7d' }
     );
-
     res.cookie('jwt', token, {
       // domain: 'diploma.api.a.stay.nomoredomains.rocks',
       // path: '/',
