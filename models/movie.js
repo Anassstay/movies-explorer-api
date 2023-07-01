@@ -61,7 +61,7 @@ const movieSchema = new mongoose.Schema({
     type: String, // строка
     required: [true, 'Нужно указать название фильма на русском языке'],
   },
-  nameEn: {
+  nameEN: {
     type: String, // строка
     required: [true, 'Нужно указать название фильма на английском языке'],
   },
