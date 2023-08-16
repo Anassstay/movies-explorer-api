@@ -44,6 +44,7 @@ const getUserInfo = (req, res, next) => {
 // Ф-ция регистрации, для создания пользователя
 const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
+  // console.log(email, password, name);
   bcrypt.hash(password, 10) // хешировать пароль
     .then((hash) => User.create({
       email, password: hash, name, // записать хеш в базу
@@ -53,6 +54,7 @@ const createUser = (req, res, next) => {
       const data = user.toObject();
       delete data.password;
       res.status(CREATED).send(data);
+      // console.log(data);
     })
     // если данных нет, вернуть ошибку
     .catch((err) => {

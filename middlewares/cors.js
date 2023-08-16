@@ -1,8 +1,7 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
   'https://diploma.api.a.stay.nomoredomains.rocks',
-  'https://localhost:3000',
-  'https://localhost:3001'
+  'http://localhost:3001'
 ];
 
 module.exports = (req, res, next) => {
