@@ -24,7 +24,9 @@ const app = express(); // создать приложение методом exp
 mongoose.connect(NODE_ENV === 'production' ? DATABASE : DEFAULT_DATABASE, {
   useNewUrlParser: true,
   Family: 4
-});
+})
+  .then(() => console.log('connect in DB is OK'))
+  .catch(console.log);
 
 app.use(corsModule({
   origin: true,

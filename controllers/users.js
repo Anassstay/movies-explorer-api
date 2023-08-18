@@ -31,7 +31,7 @@ const getUserInfo = (req, res, next) => {
   const userId = req.user._id;
   User.findById(userId) // записываем данные в базу
     .then((user) => res.send(user)) // возвращаем записанные в базу данные пользователю
-  // если данные не записались, вернём ошибку
+    // если данные не записались, вернём ошибку
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
         next(new NotFoundError(USER_NOT_FOUND_ERR_MESSAGE));
@@ -131,7 +131,7 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     res.clearCookie('jwt', {
-      domain: 'diploma.api.a.stay.nomoredomains.rocks',
+      // domain: 'diploma.api.a.stay.nomoredomains.rocks',
       path: '/',
       sameSite: 'none',
       secure: true,
