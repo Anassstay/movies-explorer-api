@@ -53,6 +53,23 @@ const createUser = (req, res, next) => {
     .then((user) => {
       const data = user.toObject();
       delete data.password;
+      // создать токен
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET_PROD : JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+      res.cookie('jwt', token, {
+        // domain: 'diploma.api.a.stay.nomoredomains.rocks',
+        // path: '/',
+        // такая кука будет храниться 7 дней
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        // защита от автоматической отправки кук
+        // указать браузеру, чтобы тот посылал куки, только если запрос сделан с того же домена
+        sameSite: 'none',
+        secure: true,
+      });
       res.status(CREATED).send(data);
       // console.log(data);
     })
@@ -121,8 +138,8 @@ const login = async (req, res, next) => {
       httpOnly: true,
       // защита от автоматической отправки кук
       // указать браузеру, чтобы тот посылал куки, только если запрос сделан с того же домена
-      // sameSite: 'none',
-      // secure: true,
+      sameSite: 'none',
+      secure: true,
     });
     res.send({ message: LOGIN_MESSAGE });
   } catch (err) { next(err); }
